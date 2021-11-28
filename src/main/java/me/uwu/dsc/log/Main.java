@@ -6,6 +6,7 @@ import me.uwu.dsc.log.setting.SettingsManager;
 import me.uwu.dsc.log.utils.ConsoleUtils;
 import me.uwu.dsc.log.utils.DiscordUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Scanner;
@@ -14,6 +15,8 @@ public class Main {
     public static boolean debug = false;
     public static void main(String[] args) throws ClassNotFoundException {
         try {
+            //noinspection ResultOfMethodCallIgnored
+            new File("dump/").mkdirs();
             SettingsManager.genSettingsFiles();
             SettingsManager.loadSettingsFile();
         } catch (IOException e) {

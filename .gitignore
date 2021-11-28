@@ -1,2 +1,7 @@
 # Project exclude paths
 /target/
+/dump/
+logs.db
+logs.db.base
+logs.db.old
+Start.cmd

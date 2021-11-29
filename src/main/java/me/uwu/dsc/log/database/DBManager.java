@@ -1,14 +1,14 @@
 package me.uwu.dsc.log.database;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import me.uwu.dsc.log.event.impl.MessageReceived;
-import me.uwu.dsc.log.struct.Author;
-import me.uwu.dsc.log.struct.CompactMessage;
+import me.uwu.dsc.log.struct.*;
 
 import java.sql.*;
 
 public class DBManager {
-    private static Connection connect() {
+    public static Connection connect() {
         // SQLite connection string
         String url = "jdbc:sqlite:logs.db";
         Connection conn = null;
@@ -86,5 +86,75 @@ public class DBManager {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public static Message getMessageByID(long id) {
+        String sql = "SELECT * FROM messages WHERE id = " + id;
+
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            if (rs.next()) {
+                Gson gson = new Gson();
+                MessageReference messageReference = null;
+                Mention[] mentions = new Mention[]{};
+                long[] mentionRoles = new long[]{};
+                JsonObject[] embeds = new JsonObject[]{};
+                JsonObject[] components = new JsonObject[]{};
+                Author author = null;
+                Attachment[] attachments = new Attachment[]{};
+
+                try { messageReference = gson.fromJson(rs.getString("messageReference"), MessageReference.class);
+                } catch (Exception e) { e.printStackTrace(); }
+
+                try { mentions = gson.fromJson(rs.getString("mentions"), Mention[].class);
+                } catch (Exception e) { e.printStackTrace(); }
+
+                try { mentionRoles = gson.fromJson(rs.getString("mentionRoles"), long[].class);
+                } catch (Exception e) { e.printStackTrace(); }
+
+                try { embeds = gson.fromJson(rs.getString("embeds"), JsonObject[].class);
+                } catch (Exception e) { e.printStackTrace(); }
+
+                try { components = gson.fromJson(rs.getString("components"), JsonObject[].class);
+                } catch (Exception e) { e.printStackTrace(); }
+
+                try { author = gson.fromJson(rs.getString("author"), Author.class);
+                } catch (Exception e) { e.printStackTrace(); }
+
+                try { attachments = gson.fromJson(rs.getString("attachments"), Attachment[].class);
+                } catch (Exception e) { e.printStackTrace(); }
+
+                return new Message(
+                        rs.getLong("id"),
+                        rs.getBoolean("tts"),
+                        rs.getLong("timestamp"),
+                        rs.getLong("referencedMessage"),
+                        rs.getLong("nonce"),
+                        messageReference,
+                        mentions,
+                        mentionRoles,
+                        rs.getBoolean("mentionEveryone"),
+                        rs.getInt("type"),
+                        rs.getLong("flags"),
+                        embeds,
+                        rs.getLong("editedTimestamp"),
+                        rs.getString("content"),
+                        components,
+                        rs.getLong("channelId"),
+                        author,
+                        attachments,
+                        rs.getBoolean("deleted"),
+                        rs.getString("oldContents"),
+                        rs.getString("oldAttachments"),
+                        rs.getLong("deletedTimestamp")
+                        );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

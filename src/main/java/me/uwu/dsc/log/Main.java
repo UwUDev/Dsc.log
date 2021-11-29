@@ -4,6 +4,7 @@ import me.uwu.dsc.log.config.ConfigManager;
 import me.uwu.dsc.log.network.DiscordWSS;
 import me.uwu.dsc.log.setting.SettingsManager;
 import me.uwu.dsc.log.stats.Stats;
+import me.uwu.dsc.log.tools.Tools;
 import me.uwu.dsc.log.utils.ConsoleUtils;
 import me.uwu.dsc.log.utils.DiscordUtils;
 
@@ -51,6 +52,8 @@ public class Main {
                 SettingsManager.logFiles = !SettingsManager.logFiles;
 
 
+            if(line.equals("t"))
+                Tools.openToolsMenu();
             if(line.equals("s"))
                 SettingsManager.openSettings();
             if(line.equals("c"))

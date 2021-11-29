@@ -11,4 +11,8 @@ public class MessageReference {
     private final long messageId;
     @SerializedName("channel_id")
     private final long channelId;
+
+    public String getUrl() {
+        return "https://discord.com/channels/@me/" + channelId + "/" + messageId;
+    }
 }

@@ -62,7 +62,8 @@ public class ConsoleUtils {
             System.out.println("\u001B[32m2) Log all files");
         else System.out.println("\u001B[31m2) Log all files");
 
-        System.out.println("\n\u001B[0ms) Settings");
+        System.out.println("\n\u001B[0mt) Tools");
+        System.out.println("\u001B[0ms) Settings");
         System.out.println("\u001B[0mc) Configs");
     }
 
@@ -74,6 +75,13 @@ public class ConsoleUtils {
         System.out.println("\u001B[0m0) Edit " + word1 + " files by extensions   (" + SettingsManager.listExtensions.size() + ")");
         System.out.println("\u001B[0m1) Edit " + word1 + " files by names        (" + SettingsManager.listName.size() + ")");
         System.out.println("\u001B[0m2) Edit " + word1 + " files by regex        (" + SettingsManager.listRegex.size() + ")");
+    }
+
+    public static void drawToolsMenu() {
+        clearConsole();
+        drawLogo();
+        System.out.println("\u001B[34mb) Back\n");
+        System.out.println("\u001B[0m0) Get dumped file infos");
     }
 
     public static void drawConfigsMenu() {

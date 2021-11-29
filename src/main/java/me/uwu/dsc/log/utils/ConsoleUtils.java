@@ -1,8 +1,17 @@
 package me.uwu.dsc.log.utils;
 
+import lombok.SneakyThrows;
 import me.uwu.dsc.log.Main;
+import me.uwu.dsc.log.cache.Cache;
 import me.uwu.dsc.log.config.ConfigManager;
 import me.uwu.dsc.log.setting.SettingsManager;
+import me.uwu.dsc.log.stats.Stats;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 public class ConsoleUtils {
     private static final String os = System.getProperty("os.name");
@@ -10,7 +19,8 @@ public class ConsoleUtils {
     public static String word2 = "Blacklisted";
 
     public static void clearConsole() {
-        for (int i = 0; i < 50; ++i) System.out.println();
+        //intellij console moment
+        //for (int i = 0; i < 50; ++i) System.out.println();
         try {
             if (os.contains("Windows"))
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -124,5 +134,14 @@ public class ConsoleUtils {
         else System.out.println("\u001B[34ma)         Add file regex to " + word1 + " ex: (a ^Screenshot.*jpg$) will ignore screenshots");
         System.out.println("\u001B[34mr)         Remove file regex to " + word1 + " ex: (r ^Screenshot.*jpg$)");
         System.out.println("\u001B[34mclear all) Remove all file regex in the " + word1);
+    }
+
+    @SneakyThrows
+    public static void refresh() {
+        clearConsole();
+        OutputStream out = new BufferedOutputStream( System.out );
+        out.write(Stats.graphic.getBytes(StandardCharsets.UTF_8));
+        out.write(Cache.getRawMessages().getBytes(StandardCharsets.UTF_8));
+        out.flush();
     }
 }

@@ -3,6 +3,7 @@ package me.uwu.dsc.log;
 import me.uwu.dsc.log.config.ConfigManager;
 import me.uwu.dsc.log.network.DiscordWSS;
 import me.uwu.dsc.log.setting.SettingsManager;
+import me.uwu.dsc.log.stats.Stats;
 import me.uwu.dsc.log.utils.ConsoleUtils;
 import me.uwu.dsc.log.utils.DiscordUtils;
 
@@ -59,6 +60,7 @@ public class Main {
         }
         ConsoleUtils.clearConsole();
         ConsoleUtils.drawLogo();
+        Stats.start();
         newConnection(token);
     }
 

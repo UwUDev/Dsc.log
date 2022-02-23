@@ -1,10 +1,16 @@
 package me.uwu.dsc.log.tools;
 
+import com.google.gson.GsonBuilder;
 import me.uwu.dsc.log.database.DBManager;
 import me.uwu.dsc.log.struct.Message;
+import me.uwu.dsc.log.utils.ConsoleUtils;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,8 +48,25 @@ public class QueryTool {
             }
         });
         System.out.println(links);
-        System.out.println("\n\u001B[33mPress ENTER to go back.");
-        new Scanner(System.in).nextLine();
+        System.out.println("\n\u001B[35mEnter E to export.\n\u001B[33mPress ENTER to go back.");
+        if(new Scanner(System.in).nextLine().equalsIgnoreCase("E")) {
+            File outFile = new File("exports/" + UUID.randomUUID() + ".txt");
+
+            try {new File("exports/").mkdirs();}catch (Exception ignored){}
+
+            try {
+                outFile.createNewFile();
+                FileWriter myWriter = new FileWriter(outFile);
+                myWriter.write(links.toString());
+                myWriter.close();
+                ConsoleUtils.clearConsole();
+                System.out.println("\n\u001B[32mSuccessfully exported to " + outFile.getAbsolutePath());
+                System.out.println("\u001B[33mPress ENTER to go back.");
+                new Scanner(System.in).nextLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void extractGift() {
@@ -65,8 +88,25 @@ public class QueryTool {
             }
         });
         System.out.println(links);
-        System.out.println("\n\u001B[33mPress ENTER to go back.");
-        new Scanner(System.in).nextLine();
+        System.out.println("\n\u001B[35mEnter E to export.\n\u001B[33mPress ENTER to go back.");
+        if(new Scanner(System.in).nextLine().equalsIgnoreCase("E")) {
+            File outFile = new File("exports/" + UUID.randomUUID() + ".txt");
+
+            try {new File("exports/").mkdirs();}catch (Exception ignored){}
+
+            try {
+                outFile.createNewFile();
+                FileWriter myWriter = new FileWriter(outFile);
+                myWriter.write(links.toString());
+                myWriter.close();
+                ConsoleUtils.clearConsole();
+                System.out.println("\n\u001B[32mSuccessfully exported to " + outFile.getAbsolutePath());
+                System.out.println("\u001B[33mPress ENTER to go back.");
+                new Scanner(System.in).nextLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static void printData(List<Message> messages) {
@@ -81,11 +121,20 @@ public class QueryTool {
         System.out.println("\n\u001B[35mEnter E to export.\n\u001B[33mPress ENTER to go back.");
 
         if(new Scanner(System.in).nextLine().equalsIgnoreCase("E")) {
-            // TODO: 23/02/2022 export
-            System.err.println("Export not implemented yet :(");
+            File outFile = new File("exports/" + UUID.randomUUID() + ".json");
+
+            try {new File("exports/").mkdirs();}catch (Exception ignored){}
+
             try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
+                outFile.createNewFile();
+                FileWriter myWriter = new FileWriter(outFile);
+                myWriter.write(new GsonBuilder().setPrettyPrinting().create().toJson(messages));
+                myWriter.close();
+                ConsoleUtils.clearConsole();
+                System.out.println("\n\u001B[32mSuccessfully exported to " + outFile.getAbsolutePath());
+                System.out.println("\u001B[33mPress ENTER to go back.");
+                new Scanner(System.in).nextLine();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

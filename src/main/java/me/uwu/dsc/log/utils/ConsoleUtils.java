@@ -82,6 +82,18 @@ public class ConsoleUtils {
         drawLogo();
         System.out.println("\u001B[34mb) Back\n");
         System.out.println("\u001B[0m0) Get dumped file infos");
+        System.out.println("\u001B[0m1) Query messages");
+    }
+
+    public static void drawQueryMenu() {
+        clearConsole();
+        drawLogo();
+        System.out.println("\u001B[34mb) Back\n");
+        System.out.println("\u001B[0m0) Search messages containing");
+        System.out.println("\u001B[0m1) Search messages containing (IgNoRe CaSe)");
+        System.out.println("\u001B[0m2) Search messages containing regex");
+        System.out.println("\u001B[0m3) Extract urls");
+        System.out.println("\u001B[0m4) Extract discord gifts (¬‿¬)");
     }
 
     public static void drawConfigsMenu() {

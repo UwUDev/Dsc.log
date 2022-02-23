@@ -20,4 +20,8 @@ public class Author {
             sb.append(" ");
         return sb.toString();
     }
+
+    public String getTag() {
+        return username + "#" + discriminator;
+    }
 }

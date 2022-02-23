@@ -21,6 +21,8 @@ public class Tools {
             line = sc.nextLine();
             if(line.equals("0"))
                 getFileInfosMenu();
+            if(line.equals("1"))
+                openQueryMenu();
             ConsoleUtils.drawToolsMenu();
         }
     }
@@ -58,7 +60,7 @@ public class Tools {
             if (message.getContent().length() > 0)
                 System.out.println(message.getAuthor().getUsername() + " said: " + message.getContent());
 
-            if(message.isMentionEveryone())
+            if (message.isMentionEveryone())
                 System.out.println("\u001B[31m" + message.getAuthor().getUsername() + " mentioned @everyone >:(\u001B[0m");
 
             if (message.getMentions().length > 0) {
@@ -77,6 +79,41 @@ public class Tools {
         } else {
             System.err.println("File " + filename + " has not been dumped/logged or is malformed\nTry again.\nPress enter to go back.");
             sc.nextLine();
+        }
+    }
+
+    public static void openQueryMenu() {
+        Scanner sc = new Scanner(System.in);
+        ConsoleUtils.drawQueryMenu();
+        String line = "";
+        while (!line.equals("b")) {
+            line = sc.nextLine();
+            switch (line) {
+                case "0":
+                    ConsoleUtils.clearConsole();
+                    System.out.print("\u001B[34mEnter text you want to search: ");
+                    QueryTool.queryMessageContaining(sc.next(), false);
+                    break;
+                case "1":
+                    ConsoleUtils.clearConsole();
+                    System.out.print("\u001B[34mEnter text you want to search (ignoring case mode): ");
+                    QueryTool.queryMessageContaining(sc.next(), true);
+                    break;
+                case "2":
+                    ConsoleUtils.clearConsole();
+                    System.out.print("\u001B[34mEnter regex you want to search: ");
+                    QueryTool.queryMessageWithRegex(sc.next());
+                    break;
+                case "3":
+                    ConsoleUtils.clearConsole();
+                    QueryTool.extractUrls();
+                    break;
+                case "4":
+                    ConsoleUtils.clearConsole();
+                    QueryTool.extractGift();
+                    break;
+            }
+            ConsoleUtils.drawQueryMenu();
         }
     }
 }

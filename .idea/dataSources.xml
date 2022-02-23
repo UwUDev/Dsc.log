@@ -9,7 +9,7 @@
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="logs.db.base" uuid="9ea25ffc-220f-4f63-9042-044af5054b1b">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>af2177c3-d5ff-4d06-922a-009db87eead2</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:F:\dev\Dsc.log\logs.db.base.db</jdbc-url>
@@ -21,7 +21,7 @@
       </libraries>
     </data-source>
     <data-source source="LOCAL" name="logs" uuid="72a65584-5f9d-48cb-9b6e-78d8e11c7b37">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>af2177c3-d5ff-4d06-922a-009db87eead2</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:F:\dev\Dsc.log\logs.db</jdbc-url>
@@ -29,6 +29,18 @@
       <libraries>
         <library>
           <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.31.1/sqlite-jdbc-3.31.1.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="logs [2]" uuid="6463d848-9e2e-410b-ba7b-e130977b1d94">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\UwU\Desktop\dev\Dsc.log\logs.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
         </library>
       </libraries>
     </data-source>

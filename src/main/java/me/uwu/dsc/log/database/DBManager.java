@@ -6,6 +6,9 @@ import me.uwu.dsc.log.event.impl.MessageReceived;
 import me.uwu.dsc.log.struct.*;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class DBManager {
     public static Connection connect() {
@@ -156,5 +159,198 @@ public class DBManager {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public static List<Message> getMessagesContaining(String text, boolean ignoreCase) {
+        List<Message> messages = new ArrayList<>();
+        String sql = "SELECT * FROM messages";
+
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            Gson gson = new Gson();
+            while (rs.next()) {
+                String msgContent = rs.getString("content");
+                if (ignoreCase) {
+                    text = text.toLowerCase();
+                    msgContent = msgContent.toLowerCase();
+                }
+                if (msgContent.contains(text)) {
+                    MessageReference messageReference = null;
+                    Mention[] mentions = new Mention[]{};
+                    long[] mentionRoles = new long[]{};
+                    JsonObject[] embeds = new JsonObject[]{};
+                    JsonObject[] components = new JsonObject[]{};
+                    Author author = null;
+                    Attachment[] attachments = new Attachment[]{};
+
+                    try {
+                        messageReference = gson.fromJson(rs.getString("messageReference"), MessageReference.class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        mentions = gson.fromJson(rs.getString("mentions"), Mention[].class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        mentionRoles = gson.fromJson(rs.getString("mentionRoles"), long[].class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        embeds = gson.fromJson(rs.getString("embeds"), JsonObject[].class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        components = gson.fromJson(rs.getString("components"), JsonObject[].class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        author = gson.fromJson(rs.getString("author"), Author.class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        attachments = gson.fromJson(rs.getString("attachments"), Attachment[].class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    messages.add(new Message(
+                            rs.getLong("id"),
+                            rs.getBoolean("tts"),
+                            rs.getLong("timestamp"),
+                            rs.getLong("referencedMessage"),
+                            rs.getLong("nonce"),
+                            messageReference,
+                            mentions,
+                            mentionRoles,
+                            rs.getBoolean("mentionEveryone"),
+                            rs.getInt("type"),
+                            rs.getLong("flags"),
+                            embeds,
+                            rs.getLong("editedTimestamp"),
+                            rs.getString("content"),
+                            components,
+                            rs.getLong("channelId"),
+                            author,
+                            attachments,
+                            rs.getBoolean("deleted"),
+                            rs.getString("oldContents"),
+                            rs.getString("oldAttachments"),
+                            rs.getLong("deletedTimestamp")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return messages;
+    }
+
+    public static List<Message> getMessagesWithRegex(Pattern pattern) {
+        List<Message> messages = new ArrayList<>();
+        String sql = "SELECT * FROM messages";
+
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            Gson gson = new Gson();
+            while (rs.next()) {
+                if (pattern.matcher(rs.getString("content")).find()) {
+                    MessageReference messageReference = null;
+                    Mention[] mentions = new Mention[]{};
+                    long[] mentionRoles = new long[]{};
+                    JsonObject[] embeds = new JsonObject[]{};
+                    JsonObject[] components = new JsonObject[]{};
+                    Author author = null;
+                    Attachment[] attachments = new Attachment[]{};
+
+                    try {
+                        messageReference = gson.fromJson(rs.getString("messageReference"), MessageReference.class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        mentions = gson.fromJson(rs.getString("mentions"), Mention[].class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        mentionRoles = gson.fromJson(rs.getString("mentionRoles"), long[].class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        embeds = gson.fromJson(rs.getString("embeds"), JsonObject[].class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        components = gson.fromJson(rs.getString("components"), JsonObject[].class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        author = gson.fromJson(rs.getString("author"), Author.class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        attachments = gson.fromJson(rs.getString("attachments"), Attachment[].class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    messages.add(new Message(
+                            rs.getLong("id"),
+                            rs.getBoolean("tts"),
+                            rs.getLong("timestamp"),
+                            rs.getLong("referencedMessage"),
+                            rs.getLong("nonce"),
+                            messageReference,
+                            mentions,
+                            mentionRoles,
+                            rs.getBoolean("mentionEveryone"),
+                            rs.getInt("type"),
+                            rs.getLong("flags"),
+                            embeds,
+                            rs.getLong("editedTimestamp"),
+                            rs.getString("content"),
+                            components,
+                            rs.getLong("channelId"),
+                            author,
+                            attachments,
+                            rs.getBoolean("deleted"),
+                            rs.getString("oldContents"),
+                            rs.getString("oldAttachments"),
+                            rs.getLong("deletedTimestamp")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return messages;
     }
 }

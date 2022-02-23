@@ -1,11 +1,9 @@
 package me.uwu.dsc.log.stats;
 
-import me.uwu.dsc.log.utils.ConsoleUtils;
-
 public class Stats {
     public static int messageReceived = 0;
     public static String graphic = "";
-    private static int[] messageRecievedHistory = new int[]{0,1,0,0,0,0};
+    private static final int[] messageReceivedHistory = new int[]{0,1,0,0,0,0};
     private static boolean running = false;
     private static final Graph2D graph = new Graph2D(100);
     private static final Thread thread = new Thread(() ->{
@@ -13,11 +11,12 @@ public class Stats {
         while (running) {
             updateArray();
             int total = 0;
-            for (int i : messageRecievedHistory)
+            for (int i : messageReceivedHistory)
                 total += i;
             graph.addValue(total);
             graphic = graph.getGraph() + "\n";
             try {
+                //noinspection BusyWait
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -38,12 +37,12 @@ public class Stats {
     }
 
     private static void updateArray() {
-        messageRecievedHistory[0] = messageRecievedHistory[1];
-        messageRecievedHistory[1] = messageRecievedHistory[2];
-        messageRecievedHistory[2] = messageRecievedHistory[3];
-        messageRecievedHistory[3] = messageRecievedHistory[4];
-        messageRecievedHistory[4] = messageRecievedHistory[5];
-        messageRecievedHistory[5] = messageReceived;
+        messageReceivedHistory[0] = messageReceivedHistory[1];
+        messageReceivedHistory[1] = messageReceivedHistory[2];
+        messageReceivedHistory[2] = messageReceivedHistory[3];
+        messageReceivedHistory[3] = messageReceivedHistory[4];
+        messageReceivedHistory[4] = messageReceivedHistory[5];
+        messageReceivedHistory[5] = messageReceived;
         messageReceived = 0;
     }
 }

@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class QueryTool {
+    @SuppressWarnings("RegExpRedundantEscape")
     private static final Pattern urlPattern = Pattern.compile(
             "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)"
                     + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
@@ -47,6 +48,12 @@ public class QueryTool {
                 }
             }
         });
+
+        exportLinks(links);
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private static void exportLinks(StringBuilder links) {
         System.out.println(links);
         System.out.println("\n\u001B[35mEnter E to export.\n\u001B[33mPress ENTER to go back.");
         if(new Scanner(System.in).nextLine().equalsIgnoreCase("E")) {
@@ -87,28 +94,11 @@ public class QueryTool {
                 }
             }
         });
-        System.out.println(links);
-        System.out.println("\n\u001B[35mEnter E to export.\n\u001B[33mPress ENTER to go back.");
-        if(new Scanner(System.in).nextLine().equalsIgnoreCase("E")) {
-            File outFile = new File("exports/" + UUID.randomUUID() + ".txt");
 
-            try {new File("exports/").mkdirs();}catch (Exception ignored){}
-
-            try {
-                outFile.createNewFile();
-                FileWriter myWriter = new FileWriter(outFile);
-                myWriter.write(links.toString());
-                myWriter.close();
-                ConsoleUtils.clearConsole();
-                System.out.println("\n\u001B[32mSuccessfully exported to " + outFile.getAbsolutePath());
-                System.out.println("\u001B[33mPress ENTER to go back.");
-                new Scanner(System.in).nextLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        exportLinks(links);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private static void printData(List<Message> messages) {
         messages.forEach(
                 message -> System.out.println(

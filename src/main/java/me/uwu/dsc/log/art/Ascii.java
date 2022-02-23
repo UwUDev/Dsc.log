@@ -10,7 +10,7 @@ public class Ascii {
     public static String getFloppy(File file, long date) {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy,,HH:mm:ss");
         Date resultdate = new Date(date);
-        String dateString[] = sdf.format(resultdate).split(",,");
+        String[] dateString = sdf.format(resultdate).split(",,");
 
         StringBuilder floppy = new StringBuilder();
         String size = FilesTool.getSize(file.length());
@@ -25,6 +25,7 @@ public class Ascii {
         dateLine.append("|  |_").append(dateString[0]);
         for (int i = 0; i < 14-dateString[0].length(); i++)
             dateLine.append("_");
+        dateLine.append("_");
         dateLine.append("|  |\n");
 
         StringBuilder hourLine = new StringBuilder();

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Cache {
     public static int size = 32;
-    private static List<String> messages = new ArrayList<>();
+    private static final List<String> messages = new ArrayList<>();
 
     public static void add(String message) {
         messages.addAll(Arrays.asList(message.split("\n")));

@@ -42,7 +42,7 @@ public class Tools {
             else {
                 SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy,,HH:mm:ss");
                 Date resultdate = new Date(message.getDeletedTimestamp());
-                String dateString[] = sdf.format(resultdate).split(",,");
+                String[] dateString = sdf.format(resultdate).split(",,");
                 System.out.println("\u001B[31mThe orginal messsage has been deleted " + dateString[0] + " at " + dateString[1] + " :(");
             }
             System.out.println("\u001B[0mImage author is " +
@@ -75,11 +75,10 @@ public class Tools {
             if (message.getMessageReference() != null)
                 System.out.println("The message refers to: " + message.getMessageReference().getUrl());
             System.out.println("\n\nPress enter to go back");
-            sc.nextLine();
         } else {
             System.err.println("File " + filename + " has not been dumped/logged or is malformed\nTry again.\nPress enter to go back.");
-            sc.nextLine();
         }
+        sc.nextLine();
     }
 
     public static void openQueryMenu() {

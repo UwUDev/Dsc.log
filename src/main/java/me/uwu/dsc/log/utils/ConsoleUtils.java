@@ -8,9 +8,7 @@ import me.uwu.dsc.log.setting.SettingsManager;
 import me.uwu.dsc.log.stats.Stats;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
 public class ConsoleUtils {

@@ -1,13 +1,14 @@
 package me.uwu.dsc.log.tools;
 
 import com.google.gson.Gson;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import me.uwu.dsc.log.database.DBManager;
 import me.uwu.dsc.log.struct.Attachment;
 import me.uwu.dsc.log.struct.Message;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 
 public class FilesTool {

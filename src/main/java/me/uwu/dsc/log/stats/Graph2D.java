@@ -44,9 +44,7 @@ public class Graph2D {
         StringBuilder sb = new StringBuilder();
         long increment = getMax() / 12;
         if (getMax() % 12 != 0) increment++;
-        /*for (int i = 0; i <= 12; i++) {
-            System.out.println(increment*i);
-        }*/
+
         int intSize = String.valueOf(increment*12).length();
         StringBuilder blank = new StringBuilder();
         for (int i = 0; i < intSize; i++)

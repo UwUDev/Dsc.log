@@ -25,7 +25,6 @@ public class Ascii {
         dateLine.append("|  |_").append(dateString[0]);
         for (int i = 0; i < 14-dateString[0].length(); i++)
             dateLine.append("_");
-        dateLine.append("_");
         dateLine.append("|  |\n");
 
         StringBuilder hourLine = new StringBuilder();

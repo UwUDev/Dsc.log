@@ -13,4 +13,8 @@ public class Mention {
     private final long id;
     private final String discriminator;
     private final String avatar;
+
+    public String getTag() {
+        return username + "#" + discriminator;
+    }
 }

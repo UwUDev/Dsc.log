@@ -37,6 +37,8 @@ public class Tools {
         if (message != null) {
             ConsoleUtils.clearConsole();
             System.out.println("            " + Ascii.getFloppy(file, message.getTimestamp()).replace("\n", "\n            "));
+            System.out.println("\n");
+
             if (!message.isDeleted())
                 System.out.println("\u001B[32mThe orginal messsage should not be deleted :)");
             else {
@@ -45,36 +47,35 @@ public class Tools {
                 String[] dateString = sdf.format(resultdate).split(",,");
                 System.out.println("\u001B[31mThe orginal messsage has been deleted " + dateString[0] + " at " + dateString[1] + " :(");
             }
-            System.out.println("\u001B[0mImage author is " +
-                        message.getAuthor().getUsername() + "#" +
-                        message.getAuthor().getDiscriminator() + "  ("+
-                        message.getAuthor().getId() + ")"
+            System.out.println("\u001B[0mImage author is \u001B[36m" +
+                        message.getAuthor().getTag() + "\u001B[0m  (\u001B[34m"+
+                        message.getAuthor().getId() + "\u001B[0m)"
                     );
 
             for (Attachment attachment : message.getAttachments())
                 if (attachment.getUrl().contains(filename.split("\\.")[0])){
-                    System.out.println("File url: " + attachment.getUrl().replace("cdn.discordapp.com", "media.discordapp.net"));
+                    System.out.println("\u001B[35mFile url: \u001B[34m" + attachment.getUrl().replace("cdn.discordapp.com", "media.discordapp.net"));
                     break;
                 }
 
             if (message.getContent().length() > 0)
-                System.out.println(message.getAuthor().getUsername() + " said: " + message.getContent());
+                System.out.println("\u001B[36m" + message.getAuthor().getUsername() + " \u001B[35msaid: \u001B[34m" + message.getContent());
 
             if (message.isMentionEveryone())
                 System.out.println("\u001B[31m" + message.getAuthor().getUsername() + " mentioned @everyone >:(\u001B[0m");
 
             if (message.getMentions().length > 0) {
-                System.out.println(message.getAuthor().getUsername() + " mentioned " + message.getMentions().length + " members:");
+                System.out.println("\u001B[36m" + message.getAuthor().getUsername() + " \u001B[35mmentioned " + message.getMentions().length + " members:");
                 for (Mention mention : message.getMentions()) {
-                    System.out.println("  -" + mention.getUsername() + "#" + mention.getDiscriminator());
+                    System.out.println("\u001B[0m  - \u001B[36m" + mention.getTag() + "  \u001B[0m  (\u001B[34m" + mention.getId() + "\u001B[0m)");
                 }
             }
 
-            System.out.println("The message URL is: " + message.getUrl());
+            System.out.println("\u001B[35mThe message URL is: \u001B[34m" + message.getUrl());
 
             if (message.getMessageReference() != null)
-                System.out.println("The message refers to: " + message.getMessageReference().getUrl());
-            System.out.println("\n\nPress enter to go back");
+                System.out.println("\u001B[35mThe message refers to: \u001B[34m" + message.getMessageReference().getUrl());
+            System.out.println("\n\n\u001B[33mPress enter to go back\u001B[0m");
         } else {
             System.err.println("File " + filename + " has not been dumped/logged or is malformed\nTry again.\nPress enter to go back.");
         }

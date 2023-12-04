@@ -13,15 +13,9 @@ import java.util.regex.Pattern;
 public class DBManager {
     private static Connection conn;
     public static Connection connect() {
-        try {
-            if (conn != null && !conn.isClosed())
-                return conn;
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
         // SQLite connection string
         String url = "jdbc:sqlite:logs.db";
+        Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {

@@ -11,7 +11,7 @@ import java.io.File;
 public class ToolsTest {
     public static void main(String[] args) {
         String media = "914630438172131368.png";
-        Message message = FilesTool.getFileMessage(media);
+        Message message = FilesTool.getFileMessage(Long.parseLong(media.split("\\.")[0]));
         System.out.println(new Gson().toJson(message));
         System.out.println(message.getUrl());
         File file = new File("dump/png/" + media);

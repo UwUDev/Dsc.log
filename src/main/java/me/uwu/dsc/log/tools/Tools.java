@@ -32,7 +32,7 @@ public class Tools {
         ConsoleUtils.clearConsole();
         System.out.print("\u001B[34mEnter file name (including extension like 012345678910111213.png): ");
         String filename = sc.nextLine();
-        Message message = FilesTool.getFileMessage(filename);
+        Message message = FilesTool.getFileMessage(Long.parseLong(filename.split("\\.")[0]));
         File file = new File("dump/" + filename.split("\\.")[1] + "/" + filename);
         if (message != null) {
             ConsoleUtils.clearConsole();

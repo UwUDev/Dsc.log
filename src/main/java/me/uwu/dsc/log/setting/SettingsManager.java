@@ -28,7 +28,8 @@ public class SettingsManager {
             logMessages = true,
             logDMs = true,
             logGroups = true,
-            logGuilds = true;
+            logGuilds = true,
+            ignoreBots = true;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void genSettingsFiles() throws IOException {

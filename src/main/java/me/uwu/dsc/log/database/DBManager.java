@@ -11,10 +11,17 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class DBManager {
+    private static Connection conn;
     public static Connection connect() {
+        try {
+            if (conn != null && !conn.isClosed())
+                return conn;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         // SQLite connection string
         String url = "jdbc:sqlite:logs.db";
-        Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
@@ -23,7 +30,7 @@ public class DBManager {
         return conn;
     }
 
-    public static void addNewMessage(MessageReceived message, long timestamp) {
+    public static synchronized void addNewMessage(MessageReceived message, long timestamp) {
         //                                 1   2      3              4          5           6            7         8            9            10   11    12          13         14        15         16      17        18        19
         String sql = "INSERT INTO messages(id,tts,timestamp,referencedMessage,nonce,messageReference,mentions,mentionRoles,mentionEveryone,type,flags,embeds,editedTimestamp,content,components,channelId,author,attachments,deleted) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 

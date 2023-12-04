@@ -23,6 +23,7 @@ public class Dumper {
                 String[] splits = url.split("/");
 
                 File outputFile = new File("dump/" + extension + "/" + splits[splits.length-2] + "." + extension);
+                new File(outputFile.getParent()).mkdirs();
                 outputFile.createNewFile();
 
                 URLConnection c = website.openConnection();

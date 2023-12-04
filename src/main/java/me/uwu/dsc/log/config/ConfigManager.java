@@ -54,6 +54,7 @@ public class ConfigManager {
                     SettingsManager.logDMs = config.isLogDMs();
                     SettingsManager.logGroups = config.isLogGroups();
                     SettingsManager.logGuilds = config.isLogGuilds();
+                    SettingsManager.ignoreBots = config.isIgnoreBots();
                     saveConfig(config);
                 } else {
                     System.err.println("Unable to find config " + line.split(" ")[1] + " double check name.\n" +
@@ -77,6 +78,7 @@ public class ConfigManager {
                     config.setLogDMs(SettingsManager.logDMs);
                     config.setLogGroups(SettingsManager.logGroups);
                     config.setLogGuilds(SettingsManager.logGuilds);
+                    config.setIgnoreBots(SettingsManager.ignoreBots);
                     saveConfig(config);
                 } else {
                     System.err.println("Unable to find config " + line.split(" ")[1] + " double check name.\n" +
@@ -138,6 +140,7 @@ public class ConfigManager {
         config.setLogDMs(SettingsManager.logDMs);
         config.setLogGroups(SettingsManager.logGroups);
         config.setLogGuilds(SettingsManager.logGuilds);
+        config.setIgnoreBots(SettingsManager.ignoreBots);
         configs.add(config);
         saveConfig(config);
     }

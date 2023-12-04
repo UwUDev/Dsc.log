@@ -19,5 +19,5 @@ public class Config {
     private String name;
     private String description;
     private final List<String> listExtensions = new ArrayList<>(), listName = new ArrayList<>(), listRegex = new ArrayList<>();
-    private boolean whitelistMode, logMessages, logFiles, logDMs, logGroups, logGuilds;
+    private boolean whitelistMode, logMessages, logFiles, logDMs, logGroups, logGuilds, ignoreBots;
 }

@@ -13,6 +13,7 @@ public class Author {
     private final long id;
     private final String discriminator;
     private final String avatar;
+    private final boolean bot;
 
     public String blankUsername() {
         StringBuilder sb = new StringBuilder();

@@ -14,16 +14,18 @@ public class Dumper {
     public static void dumpUrl(String url) {
         new Thread(() ->{
             try {
-                String extension = url.substring(url.lastIndexOf(".") + 1);
+                String extension = url.substring(url.lastIndexOf('.') + 1).split("\\?")[0];
 
                 URL website = new URL(url);
                 File outputFolder = new File("dump/" + extension + "/");
-                if (!outputFolder.exists()) outputFolder.mkdirs();
+                if (!outputFolder.exists())
+                    outputFolder.mkdirs();
 
                 String[] splits = url.split("/");
 
                 File outputFile = new File("dump/" + extension + "/" + splits[splits.length-2] + "." + extension);
-                new File(outputFile.getParent()).mkdirs();
+                System.out.println(outputFile.getAbsolutePath());
+
                 outputFile.createNewFile();
 
                 URLConnection c = website.openConnection();
